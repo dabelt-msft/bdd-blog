@@ -1,0 +1,20 @@
+require 'rails_helper'
+
+RSpec.feature "listing Articles" do
+
+  before do
+    @article1 = Article.create(title: "The first article", body: "Body of first article")
+    @article2 = Article.create(title: "The second article", body: "Body of the second artcle")
+  end
+
+  scenario "List all articles" do
+    visit "/"
+
+    expect(page).to have_content(@article1.title)
+    expect(page).to have_content(@artice1.body)
+    expect(page).to have_content(@article2.title)
+    expect(page).to have_content(@article2.body)
+    expect(page).to have_link(@article.title)
+    expect(page).to have_link(@article.body)
+  end
+end
