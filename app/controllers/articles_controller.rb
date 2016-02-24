@@ -17,6 +17,11 @@ class ArticlesController < ApplicationController
       flash.now[:danger] = "Article has not been created"
       render :new
     end
+
+  def show
+      @article = Article.find(params[:id])
+  end
+
   end
   private
     def article_params
