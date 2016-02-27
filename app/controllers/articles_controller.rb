@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_filter :set_article, only: [:edit, :update, :show, :destroy]
+  before_filter :set_article, only: [:show, :edit, :update, :destroy]
 
   def index
     @articles = Article.all
@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
+    @article = current_user.articles.build(article_params)
     if @article.save
       flash[:success] = "Article has been created"
       redirect_to articles_path
@@ -20,6 +20,7 @@ class ArticlesController < ApplicationController
       flash.now[:danger] = "Article has not been created"
       render :new
     end
+  end
 
   def edit
   end
@@ -44,8 +45,6 @@ class ArticlesController < ApplicationController
     end
   end
 
-
-  end
   private
     def article_params
       #:article is "top level key"
